@@ -38,8 +38,9 @@ class _CameraScreenState extends State<CameraScreen> {
 
       _controller = CameraController(
         camera,
-        ResolutionPreset.high,
+        ResolutionPreset.max,
         enableAudio: true,
+        imageFormatGroup: ImageFormatGroup.jpeg,
       );
 
       await _controller!.initialize();
@@ -65,10 +66,6 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Camera'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
       body: _buildBody(),
     );
   }
@@ -112,10 +109,15 @@ class _CameraScreenState extends State<CameraScreen> {
       );
     }
 
-    return Center(
-      child: AspectRatio(
-        aspectRatio: _controller!.value.aspectRatio,
-        child: CameraPreview(_controller!),
+    // Full screen camera preview
+    return SizedBox.expand(
+      child: FittedBox(
+        fit: BoxFit.cover,
+        child: SizedBox(
+          width: _controller!.value.previewSize!.height,
+          height: _controller!.value.previewSize!.width,
+          child: CameraPreview(_controller!),
+        ),
       ),
     );
   }
