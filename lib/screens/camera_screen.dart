@@ -30,9 +30,9 @@ class _CameraScreenState extends State<CameraScreen> {
         return;
       }
 
-      // Use the front camera for interviews
+      // Use the back camera to capture pictures
       CameraDescription camera = _cameras!.firstWhere(
-        (camera) => camera.lensDirection == CameraLensDirection.front,
+        (camera) => camera.lensDirection == CameraLensDirection.back,
         orElse: () => _cameras!.first,
       );
 
