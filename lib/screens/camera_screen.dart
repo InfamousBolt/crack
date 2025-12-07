@@ -51,8 +51,13 @@ class _CameraScreenState extends State<CameraScreen> {
       await _controller!.initialize();
 
       // Get zoom range
-      _minZoom = await _controller!.getMinZoomLevel();
-      _maxZoom = await _controller!.getMaxZoomLevel();
+      final minZoomLevel = await _controller!.getMinZoomLevel();
+      final maxZoomLevel = await _controller!.getMaxZoomLevel();
+
+      // On iPhone 14 Pro, ensure we can access ultra-wide lens (0.5x)
+      // Some camera implementations report minZoom as 1.0 but support lower values
+      _minZoom = minZoomLevel < 1.0 ? minZoomLevel : 0.5;
+      _maxZoom = maxZoomLevel;
       _currentZoom = _minZoom;
 
       if (mounted) {
