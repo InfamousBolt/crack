@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'screens/camera_screen.dart';
 import 'screens/questions_screen.dart';
 import 'screens/answers_screen.dart';
+import 'screens/settings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
     const CameraScreen(),
     const QuestionsScreen(),
     const AnswersScreen(),
+    const SettingsScreen(),
   ];
 
   @override
@@ -57,10 +59,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> _requestPermissions() async {
-    // Request camera and microphone permissions
+    // Request camera, microphone, and speech recognition permissions
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.microphone,
+      Permission.speech,
     ].request();
 
     bool allGranted = statuses.values.every((status) => status.isGranted);
@@ -82,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
       builder: (context) => AlertDialog(
         title: const Text('Permissions Required'),
         content: const Text(
-          'Camera and microphone permissions are required for this app to function properly.',
+          'Camera, microphone, and speech recognition permissions are required for this app to function properly.',
         ),
         actions: [
           TextButton(
@@ -124,6 +127,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.lightbulb),
             label: 'Answers',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
       ),

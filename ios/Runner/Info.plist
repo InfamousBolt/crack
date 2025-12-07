@@ -52,5 +52,9 @@
 	<!-- Microphone Permission -->
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app needs access to the microphone to record audio during interviews.</string>
+
+	<!-- Speech Recognition Permission -->
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app needs speech recognition to transcribe interview questions.</string>
 </dict>
 </plist>
